@@ -127,6 +127,24 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        'debug' => [
+            'driver' => 'monolog',
+            'handler' => Monolog\Handler\FilterHandler::class,
+            'handler_with' => [
+                'handler' => new StreamHandler(storage_path('logs/debug.log')),
+                'minLevelOrList' => [\Monolog\Level::Debug],
+            ],
+        ],
+
+        'error' => [
+            'driver' => 'monolog',
+            'handler' => Monolog\Handler\FilterHandler::class,
+            'handler_with' => [
+                'handler' => new StreamHandler(storage_path('logs/error.log')),
+                'minLevelOrList' => [\Monolog\Level::Error],
+            ],
+        ],
+
     ],
 
 ];
