@@ -30,8 +30,8 @@ class NotifyAnotherArticleCommentators implements ShouldQueue
                 ->distinct();
         })->get();
 
-        $commentators->each(function ($commentator) {
-            $commentator->notify(ArticleCommented::class);
+        $commentators->each(function ($commentator) use ($event) {
+            $commentator->notify(new ArticleCommented($event->comment));
         });
     }
 }

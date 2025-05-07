@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -14,7 +15,7 @@ class ArticleCommented extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(public Comment $comment)
     {
         //
     }
@@ -36,7 +37,7 @@ class ArticleCommented extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->subject('Article received a new comment')
-            ->line('The article in which you participated in the discussion has received a new comment. Check out what\'s being written!')
+            ->line('The article "'.$this->comment->article->title.'" in which you participated in the discussion has received a new comment. Check out what\'s being written!')
             ->action('Read', url('/')); // TODO: set URL to article
     }
 }
